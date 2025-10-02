@@ -9,6 +9,8 @@ organizadas em uma malha com:
 
 ● caixas de munição
 
+Cada célula da malha deverá ser ativada e desativada a depender a localização do jogador, assim como os inimigos que estão dentro de cada célula.
+
 ## Como Compilar
 
 Para compilar o projeto, siga os passos abaixo.
