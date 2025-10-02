@@ -20,7 +20,7 @@ void Bullet::Trajectory(Vector2 position, float rotation)
 {
     this->position = position;
     this->rotation = rotation;
-    float speed =35.0f;
+    float speed =350.0f;
 
     Vector2 forward = {0, -1};
     Vector2 direction = Vector2Rotate(forward, rotation * DEG2RAD);

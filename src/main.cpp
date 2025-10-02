@@ -1,6 +1,5 @@
 #include <string>
 
-#include <raylib.h>
 #include <iaj/Game.h>
 
 int main(void)

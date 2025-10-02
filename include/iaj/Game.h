@@ -19,24 +19,49 @@ class Game
         Camera2D camera;
 
         Game();
-
-        void GenerateEnemys();
-        void GenerateUtilitys();
-
         void Run();
-
-        void Update(float deltaTime);
-        void Draw();
 
     private:
         std::unique_ptr<Player> player;
-        std::vector<std::unique_ptr<Enemy>> enemys; 
 
         std::vector<std::unique_ptr<Bullet>> projectiles;
         std::vector<std::unique_ptr<Bullet>> ammo; 
 
         std::unique_ptr<World> world;
 
+        std::vector<std::unique_ptr<Enemy>> allEnemies;
         std::vector<Vector2> floorAmmo;
-        std::vector<Vector2> floorHeal; 
+        std::vector<Vector2> floorHeal;
+
+        double initialTime;
+
+        double lastDamageTime;
+
+        void GenerateEnemies();
+        void GenerateUtilities();
+
+        void HandleInput(float deltaTime);
+        void UpdateEntities(float deltaTime);
+        void HandleCollisions();
+        void UpdateCamera();
+        void UpdateGameState();
+
+        void Start();
+        void Update(float deltaTime);
+        void Win();
+        void Over();
+        void Restart();
+
+        void DrawUI();
+        void Draw();
+        void DrawMinimap();
+
+        enum class GameState
+        {
+            START,
+            WIN,
+            GAMEOVER,
+            ONGOING
+        };
+        GameState state;
 };

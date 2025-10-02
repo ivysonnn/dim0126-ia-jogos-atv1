@@ -3,6 +3,7 @@
 World::World() {}
 
 void World::Generate(int cols, int rows, int roomWidth, int roomHeight) {
+    worldBounds = {0, 0, (float)cols * roomWidth, (float)rows * roomHeight};
     m_rooms.clear();  // to restart the game
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {

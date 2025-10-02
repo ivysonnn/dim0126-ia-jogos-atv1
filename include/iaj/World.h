@@ -9,7 +9,6 @@
 typedef struct Room
 {
     Rectangle roomRec;
-    std::vector<std::unique_ptr<Enemy>> enemys;
     bool isActive = false;
 } room;
 
@@ -24,6 +23,7 @@ public:
     void Draw();
 
     const std::vector<std::unique_ptr<Room>>& getRooms() const;
+    Rectangle getWorldBounds() const { return worldBounds; }
 
 private:
     Rectangle worldBounds;

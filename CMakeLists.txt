@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall ")
 
-add_subdirectory(vendor/raylib)
+add_subdirectory(lib/raylib)
 
 
 add_library(ia-jogos INTERFACE)

@@ -1,26 +1,33 @@
 #include <iaj/Enemy.h>
+#include <iaj/Player.h>
+#include <raymath.h>
 
-Enemy::Enemy(Vector2 position, int8_t health, int8_t damage, float radius)
+Enemy::Enemy(Vector2 position, int8_t health, int8_t damage, float radius, double speed)
 {
     this->position = position;
     this->health = health;
     this->damage = damage;
     this->radius = radius;
+    this->speed = speed;
 }
 
 Enemy::~Enemy()
 {
 }
-void Enemy::Update(float deltaTime)
+void Enemy::Update(Player& player, float deltaTime)
 {
-    // For now, the enemy doesn't move on its own.
-    // AI logic will be added later.
+    state = State::PURSUING;
+    Vector2 direction = Vector2Subtract(player.getPosition(), position);
+    direction = Vector2Normalize(direction);
+    position = Vector2Add(position, Vector2Scale(direction, speed * deltaTime));
 }
 
 void Enemy::Draw()
 {
-    int segments = 36;
-    for (int i = 0; i < segments; i++) {
+    DrawCircle(position.x, position.y, radius, BLACK);
+
+    int segments = 36; 
+    for (int i = 0; i < segments; i++) { // to make the lines thicker
         float angle1 = (2 * PI * i) / segments;
         float angle2 = (2 * PI * (i + 1)) / segments;
         
@@ -36,11 +43,4 @@ void Enemy::Draw()
         
         DrawLineEx(point1, point2, 2, WHITE);
     }
-
-    DrawCircle(position.x, position.y, radius, BLACK);
-}
-
-State Enemy::getState()
-{
-    return state;
 }

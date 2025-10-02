@@ -12,13 +12,14 @@ class Character
         int8_t health;
 
         virtual ~Character() = default;
-        virtual void Update(float deltaTime) = 0;
+        virtual void Update(float deltaTime) {};
         virtual void Draw() = 0;
         
         int8_t getDamage() const {return damage;}
         float getRadius() const {return radius;}
         
         Vector2 getPosition() const {return position;}
+        void setPosition(Vector2 newPosition) { this->position = newPosition; }
 
         bool getIsDead() const {return health <= 0;}
 

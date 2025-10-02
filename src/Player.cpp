@@ -2,23 +2,24 @@
 #include <raymath.h>
 #include <thread>
 
-#define DEFAULT_ROTATION 1.5
+const double DEFAULT_ROTATION = 1.5;
 
-Player::Player(Vector2 position, int8_t health, int8_t damage, float radius, float rotation)
+Player::Player(Vector2 position, int8_t health, int8_t damage, float radius, double speed, float rotation, int maxAmmo)
 {
     this->rotation = rotation;
 
     this->position = position;
     this->health = health;
     this->damage = damage;
-    this->speed = 200.0f; 
+    this->speed = speed; 
     this->radius = radius;
 
-    for(int i = 0; i < 45; i++)
+    for(int i = 0; i < maxAmmo; i++)
     {
         ammo.emplace_back(std::move(std::make_unique<Bullet>()));
     }
 }
+
 void Player::Update(float deltaTime)
 {
     Vector2 movement = {0.0f, 0.0f};
@@ -41,10 +42,8 @@ void Player::Update(float deltaTime)
 
     position.x += movement.x * speed * deltaTime;
     position.y += movement.y * speed * deltaTime;
-}
 
-void Player::Draw() // draws a triangle
-{
+    // recalculates vertices after rotation and moving
     float h = radius * 1.5f; 
     float w = radius;      
     Vector2 p1 = {0, -h / 2.0f}; // top point
@@ -55,11 +54,16 @@ void Player::Draw() // draws a triangle
     v1 = Vector2Add(Vector2Rotate(p1, angle_rad), position);
     v2 = Vector2Add(Vector2Rotate(p2, angle_rad), position);
     v3 = Vector2Add(Vector2Rotate(p3, angle_rad), position);
+}
 
+void Player::Draw() // draws a triangle
+{
+    DrawTriangle(v1, v2, v3, BLACK);
+
+    // to make lines thicker
     DrawLineEx(v1, v2, 2, WHITE);
     DrawLineEx(v1, v3, 2, WHITE);
     DrawLineEx(v3, v2, 2, WHITE);
-    DrawTriangle(v1, v2, v3, BLACK);
 }
 
 std::vector<Vector2> Player::GetVecs()
@@ -72,7 +76,7 @@ int8_t Player::GetHealth()
     return health;
 }
 
-u_int8_t Player::getAmmoQuantity()
+int Player::getAmmoQuantity()
 {
     return ammo.size();
 }
