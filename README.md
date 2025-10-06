@@ -66,5 +66,5 @@ Consulte a [página de wiki do raylib](https://github.com/raysan5/raylib/wiki/Wo
     Após a compilação, o executável estará dentro do diretório `build`. Para executá-lo:
 
     ```bash
-    ./build/dim0126-ia-jogos-atv1
+    ./dim0126-ia-jogos-atv1
     ```
